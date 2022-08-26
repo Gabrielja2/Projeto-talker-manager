@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const talkManager = require('./talkManager');
+const talkManager = require('./utils/talkManager');
+const hash = require('./utils/token');
 
 const app = express();
 app.use(bodyParser.json());
@@ -31,4 +32,14 @@ app.get('/talker/:id', async (req, res) => {
     return res.status(200).json(talker);
   }
   return res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
+});
+
+app.post('/login', async (req, res) => {
+  const { email, password } = req.params;
+  const token = hash.randonToken();
+  console.log(token);
+
+  if (!email && !password) {
+    return res.status(200).json({ token });
+  }
 });

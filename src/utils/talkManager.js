@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
 const { join } = require('path');
 
-const path = './talker.json';
+const path = '.././talker.json';
 
 const readTalkManagerFile = async () => {
     try {
