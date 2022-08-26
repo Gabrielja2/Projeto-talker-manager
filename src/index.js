@@ -21,3 +21,14 @@ app.get('/talker', async (req, res) => {
   const talkers = await talkManager.getAllTalkers();
    return res.status(200).json(talkers);
 });
+
+app.get('/talker/:id', async (req, res) => {
+  const paramId = Number(req.params.id);
+  console.log(paramId);
+  const talker = await talkManager.getTalkerById(paramId);
+  console.log(talker);
+  if (talker) {
+    return res.status(200).json(talker);
+  }
+  return res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
+});
