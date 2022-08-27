@@ -33,12 +33,12 @@ app.listen(PORT, () => {
   console.log('Online');
 });
 
-app.get('/talker', hashToken, async (req, res) => {
+app.get('/talker', async (req, res) => {
   const talkers = await talkManager.getAllTalkers();
    return res.status(200).json(talkers);
 });
 
-app.get('/talker/:id', hashToken, async (req, res) => {
+app.get('/talker/:id', async (req, res) => {
   const paramId = Number(req.params.id);
   // console.log(paramId);
   const talker = await talkManager.getTalkerById(paramId);
