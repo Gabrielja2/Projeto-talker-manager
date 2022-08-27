@@ -25,7 +25,12 @@ const getTalkerById = async (id) => {
   return talkerSearch;
 };
 
+const writeTalkerFile = async (file) => {
+  await fs.writeFile(join(__dirname, path), JSON.stringify(file));
+};
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
+  writeTalkerFile,
 };

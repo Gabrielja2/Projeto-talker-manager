@@ -3,28 +3,42 @@ const bodyParser = require('body-parser');
 const talkManager = require('./utils/talkManager');
 const hash = require('./utils/token');
 const { validarLogin } = require('./middlewares/loginValidations');
+const { talkersValidationsNameAndAge } = require(
+  './middlewares/talkersValidations/talkersValidationsNameAndAge',
+  );
+const { talkersValidationsTalkAndRate } = require(
+  './middlewares/talkersValidations/talkersValidationsTalkAndRate',
+  );
+const { talkersValidationsWatchedAt } = require(
+  './middlewares/talkersValidations/talkersValidationsWatched',
+  );
+const { talkersValidationToken } = require(
+  './middlewares/talkersValidations/talkersValidationToken',
+  );
 
 const app = express();
 app.use(bodyParser.json());
 
 const HTTP_OK_STATUS = 200;
 const PORT = '3000';
-
+const nameAndAge = talkersValidationsNameAndAge;
+const talkAndRate = talkersValidationsTalkAndRate;
+const watchedAt = talkersValidationsWatchedAt;
+const hashToken = talkersValidationToken;
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();
 });
-
 app.listen(PORT, () => {
   console.log('Online');
 });
 
-app.get('/talker', async (req, res) => {
+app.get('/talker', hashToken, async (req, res) => {
   const talkers = await talkManager.getAllTalkers();
    return res.status(200).json(talkers);
 });
 
-app.get('/talker/:id', async (req, res) => {
+app.get('/talker/:id', hashToken, async (req, res) => {
   const paramId = Number(req.params.id);
   // console.log(paramId);
   const talker = await talkManager.getTalkerById(paramId);
@@ -37,10 +51,27 @@ app.get('/talker/:id', async (req, res) => {
 
 app.post('/login', validarLogin, async (req, res) => {
   const { email, password } = req.params;
-  const token = hash.randonToken();
-  // console.log(token);
+  const token = hash.randonToken();  
 
   if (!email && !password) {
     return res.status(200).json({ token });
   }
+});
+
+app.post('/talker', hashToken, nameAndAge, talkAndRate, watchedAt, async (req, res) => {
+  const talkerToAdd = req.body;
+  const talkers = await talkManager.getAllTalkers();
+
+  console.log('nametoadd :', req.headers);
+  // console.log(talkersValidations());
+
+  const idLastTalker = talkers[talkers.length - 1];
+  // console.log(idLastTalker.id);
+
+  const talkersFileWithNewTalker = [...talkers, {
+    ...talkerToAdd, id: idLastTalker.id + 1,
+  }];
+  // console.log(talkersFileWithNewTalker);
+  await talkManager.writeTalkerFile(talkersFileWithNewTalker);
+  return res.status(201).json({ ...talkerToAdd, id: idLastTalker.id + 1 });
 });
