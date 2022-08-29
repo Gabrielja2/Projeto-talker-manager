@@ -47,11 +47,20 @@ const editTalker = async (talker, id) => {
       } catch (error) {
           return null;
       }
-  };  
+  };
+
+const deleteTalker = async (id) => {
+  const talkers = await getAllTalkers();
+  const talkersFiltered = talkers.filter((t) => t.id !== id);
+  // console.log('talkers', talkers);
+  // console.log('esse id', id);
+  await writeTalkerFile(talkersFiltered);
+};
 
 module.exports = {
   getAllTalkers,
   getTalkerById,
   writeTalkerFile,
   editTalker,
+  deleteTalker,
 };

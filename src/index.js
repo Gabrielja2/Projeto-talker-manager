@@ -82,3 +82,11 @@ app.put('/talker/:id', hashToken, hashToken, nameAndAge, talkAndRate, watchedAt,
   console.log('aki2', talkerEdited);
   res.status(200).json(talkerEdited);
 });
+
+app.delete('/talker/:id', hashToken, async (req, res) => {
+  const paramId = Number(req.params.id);
+
+  await talkManager.deleteTalker(paramId);
+  
+  return res.status(204).send();
+});
