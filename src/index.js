@@ -6,7 +6,7 @@ const { validarLogin } = require('./middlewares/loginValidations');
 const { talkersValidationsNameAndAge } = require(
   './middlewares/talkersValidations/talkersValidationsNameAndAge',
   );
-const { talkersValidationsTalkAndRate } = require(
+const { talkAndRate } = require(
   './middlewares/talkersValidations/talkersValidationsTalkAndRate',
   );
 const { talkersValidationsWatchedAt } = require(
@@ -22,7 +22,6 @@ app.use(bodyParser.json());
 const HTTP_OK_STATUS = 200;
 const PORT = '3000';
 const nameAndAge = talkersValidationsNameAndAge;
-const talkAndRate = talkersValidationsTalkAndRate;
 const watchedAt = talkersValidationsWatchedAt;
 const hashToken = talkersValidationToken;
 // não remova esse endpoint, e para o avaliador funcionar
@@ -61,17 +60,25 @@ app.post('/login', validarLogin, async (req, res) => {
 app.post('/talker', hashToken, nameAndAge, talkAndRate, watchedAt, async (req, res) => {
   const talkerToAdd = req.body;
   const talkers = await talkManager.getAllTalkers();
-
-  console.log('nametoadd :', req.headers);
+  // console.log('nametoadd :', req.headers);
   // console.log(talkersValidations());
-
   const idLastTalker = talkers[talkers.length - 1];
   // console.log(idLastTalker.id);
-
   const talkersFileWithNewTalker = [...talkers, {
     ...talkerToAdd, id: idLastTalker.id + 1,
   }];
   // console.log(talkersFileWithNewTalker);
   await talkManager.writeTalkerFile(talkersFileWithNewTalker);
   return res.status(201).json({ ...talkerToAdd, id: idLastTalker.id + 1 });
+});
+
+app.put('/talker/:id', hashToken, hashToken, nameAndAge, talkAndRate, watchedAt,
+  async (req, res) => {
+  const paramId = req.params.id;
+  const talkerToEdit = req.body;
+  console.log('aki1', talkerToEdit);
+
+  const talkerEdited = await talkManager.editTalker(talkerToEdit, paramId);
+  console.log('aki2', talkerEdited);
+  res.status(200).json(talkerEdited);
 });

@@ -1,6 +1,6 @@
 const talkersValidationToken = (req, res, next) => {
   const { authorization } = req.headers;
-  console.log('aki', authorization);
+  // console.log('aki', authorization);
   
   if (!authorization || authorization === undefined) {
     return res.status(401).json({ message: 'Token não encontrado' });

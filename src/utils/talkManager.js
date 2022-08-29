@@ -29,8 +29,29 @@ const writeTalkerFile = async (file) => {
   await fs.writeFile(join(__dirname, path), JSON.stringify(file));
 };
 
+const editTalker = async (talker, id) => {
+      try {
+        const arrayTalkers = await getAllTalkers();
+        let editedTalker;
+        for (let i = 0; i < arrayTalkers.length; i += 1) {
+          if (arrayTalkers[i].id === Number(id)) {            
+            arrayTalkers[i].name = talker.name;
+            arrayTalkers[i].age = talker.age;
+            arrayTalkers[i].talk.watchedAt = talker.talk.watchedAt;
+            arrayTalkers[i].talk.rate = talker.talk.rate;
+            editedTalker = arrayTalkers[i];
+          }
+        }
+        await writeTalkerFile(arrayTalkers);
+        return editedTalker;
+      } catch (error) {
+          return null;
+      }
+  };  
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
   writeTalkerFile,
+  editTalker,
 };
