@@ -3,13 +3,12 @@ const talkersValidationToken = (req, res, next) => {
   // console.log('aki', authorization);
   
   if (!authorization || authorization === undefined) {
-    return res.status(401).json({ message: 'Token não encontrado' });
+    res.status(401).json({ message: 'Token não encontrado' });
+  } else if (authorization.length !== 16) {
+    res.status(401).json({ message: 'Token inválido' });
+  } else {
+    next();
   }
-  if (authorization.length !== 16) {
-    return res.status(401).json({ message: 'Token inválido' });
-  }
-
-next();
 };
 module.exports = {
  talkersValidationToken,

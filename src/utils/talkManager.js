@@ -18,6 +18,14 @@ const getAllTalkers = async () => {
   return data;
 };
 
+const getTalkerByQuery = async (queryParam) => {
+  const talkers = await getAllTalkers();
+
+  const filterByQuery = talkers.filter((t) =>
+    t.name.includes(queryParam));
+  return filterByQuery;
+};
+
 const getTalkerById = async (id) => {
   const talkers = await readTalkManagerFile();
   const talkerSearch = talkers.find((talker) => talker.id === id);
@@ -59,6 +67,7 @@ const deleteTalker = async (id) => {
 
 module.exports = {
   getAllTalkers,
+  getTalkerByQuery,
   getTalkerById,
   writeTalkerFile,
   editTalker,

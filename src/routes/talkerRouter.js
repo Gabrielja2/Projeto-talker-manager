@@ -21,7 +21,15 @@ const talkerRouter = express.Router();
 
 talkerRouter.get('/', async (req, res) => {
   const talkers = await talkManager.getAllTalkers();
-   return res.status(200).json(talkers);
+   res.status(200).json(talkers);
+});
+
+talkerRouter.get('/search', hashToken, async (req, res) => {
+  const { q } = req.query;
+
+  const talkersByQuery = await talkManager.getTalkerByQuery(q);
+  console.log(talkersByQuery);
+  res.status(200).json(talkersByQuery);
 });
 
 talkerRouter.get('/:id', async (req, res) => {
@@ -30,14 +38,15 @@ talkerRouter.get('/:id', async (req, res) => {
   const talker = await talkManager.getTalkerById(paramId);
   // console.log(talker);
   if (talker) {
-    return res.status(200).json(talker);
+    res.status(200).json(talker);
+  } else {
+    res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
   }
-  return res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
 });
 
 talkerRouter.use(hashToken); // token validation!
 
-talkerRouter.delete('/:id', hashToken, async (req, res) => {
+talkerRouter.delete('/:id', async (req, res) => {
   const paramId = Number(req.params.id);
 
   await talkManager.deleteTalker(paramId);
@@ -65,7 +74,7 @@ talkerRouter.post('/', async (req, res) => {
   return res.status(201).json({ ...talkerToAdd, id: idLastTalker.id + 1 });
 });
 
-talkerRouter.put('/:id', hashToken, nameAndAge, talkAndRate, watchedAt,
+talkerRouter.put('/:id',
   async (req, res) => {
   const paramId = req.params.id;
   const talkerToEdit = req.body;
