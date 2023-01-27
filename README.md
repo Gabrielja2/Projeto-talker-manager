@@ -27,7 +27,7 @@
 <details>
   <summary><strong>:whale: Rodando no Docker vs Localmente</strong></summary><br />
   
-  ## Com Docker
+  ## 👉 Com Docker
  
   > Rode o serviço `node` com o comando `docker-compose up -d`.
   - Esse serviço irá inicializar um container chamado `talker_manager`.
@@ -49,7 +49,7 @@
 
   ---
   
-  ## Sem Docker
+  ## 👉 Sem Docker
   
   > Instale as dependências [**Caso existam**] com `npm install`
 
