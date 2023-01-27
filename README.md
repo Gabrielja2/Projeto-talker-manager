@@ -3,14 +3,11 @@
 
 <strong>👨‍💻 O que foi desenvolvido</strong><br />
     Aqui você vai encontrar os detalhes de como foi estruturado este projeto e instruções para rodar.<br />
-    Você irá construir uma aplicação de cadastro de talkers (palestrantes) em que será possível cadastrar, visualizar, pesquisar, editar e excluir informações. Para isso você deverá:
-  1. Desenvolver uma API de um `CRUD` (**C**reate, **R**ead, **U**pdate e **D**elete) de palestrantes (talkers) e;
-  2. Desenvolver alguns endpoints que irão ler e escrever em um arquivo utilizando o módulo `fs`.
-
-O layout tem como foco dispositivos móveis, dessa forma todos os protótipos vão estar desenvolvidos em telas menores.
+    Essa é uma aplicação de cadastro de talkers (palestrantes) em que é possível cadastrar, visualizar, pesquisar, editar e excluir informações. Para isso:
+  1. Foi desenvolvido uma API de um `CRUD` (**C**reate, **R**ead, **U**pdate e **D**elete) de palestrantes (talkers) e;
+  2. Alguns endpoints que irão ler e escrever em um arquivo utilizando o módulo `fs`.
 
 <br />
-
 <details>
   <summary><strong>:memo: Habilidades</strong></summary><br />
 
