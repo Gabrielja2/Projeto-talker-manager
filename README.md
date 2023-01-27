@@ -8,19 +8,6 @@
   2. Alguns endpoints que irão ler e escrever em um arquivo utilizando o módulo `fs`.
 
 <br />
-<details>
-  <summary><strong>:memo: Habilidades</strong></summary><br />
-
-  Esse projeto, reforçou diversas habilidades como:
-
-  - Utilizar _Redux_ para gerenciar estado
-  - Utilizar a biblioteca _React-Redux_
-  - Utilizar a Context API do _React_ para gerenciar estado
-  - Utilizar o _React Hook useState_
-  - Utilizar o _React Hook useContext_
-  - Utilizar o _React Hook useEffect_
-  - Criar Hooks customizados
-</details>
 
 # Orientações
 
@@ -40,13 +27,6 @@
 
   > Execute a aplicação com `npm start` ou `npm run dev`
 
-
-  :eyes: **De olho na dica:** 
-
-  A extensão `Remote - Containers` do VS Code (que estará na seção de extensões recomendadas do programa) é indicada para que você possa desenvolver sua aplicação no container Docker direto no VS Code, como você faz com seus arquivos locais.
-
-<img src="images/remote-container.png" width="800px" >
-
   ---
   
   ## 👉 Sem Docker
@@ -55,7 +35,6 @@
 
   :eyes: **De olho nas dicas:** 
   1. Para rodar o projeto desta forma, **obrigatoriamente** você deve ter o `node` instalado em seu computador.
-  2. O avaliador espera que a versão do `node` utilizada seja a 16.
 
 </details>
 
